@@ -47,6 +47,11 @@ useEffect(() => {{
   s("infotoast", fmt("toast.info(`{}`)", { i(1) })),
 }
 
+-- Helper function to create HTML tag snippets
+local function html_tag(tag)
+  return s(tag, fmt("<" .. tag .. ">{}</" .. tag .. ">", { i(1) }))
+end
+
 -- JSX/TSX specific snippets
 local jsx_snippets = {
   -- React function component export
@@ -119,6 +124,52 @@ export default {};
       }
     )
   ),
+
+  -- HTML tags with auto-closing
+  html_tag("div"),
+  html_tag("span"),
+  html_tag("p"),
+  html_tag("h1"),
+  html_tag("h2"),
+  html_tag("h3"),
+  html_tag("h4"),
+  html_tag("h5"),
+  html_tag("h6"),
+  html_tag("body"),
+  html_tag("header"),
+  html_tag("footer"),
+  html_tag("main"),
+  html_tag("section"),
+  html_tag("article"),
+  html_tag("aside"),
+  html_tag("nav"),
+  html_tag("ul"),
+  html_tag("ol"),
+  html_tag("li"),
+  html_tag("a"),
+  html_tag("button"),
+  html_tag("form"),
+  html_tag("label"),
+  html_tag("select"),
+  html_tag("option"),
+  html_tag("table"),
+  html_tag("thead"),
+  html_tag("tbody"),
+  html_tag("tr"),
+  html_tag("td"),
+  html_tag("th"),
+  html_tag("strong"),
+  html_tag("em"),
+  html_tag("code"),
+  html_tag("pre"),
+  html_tag("blockquote"),
+  html_tag("figure"),
+  html_tag("figcaption"),
+  html_tag("iframe"),
+  html_tag("video"),
+  html_tag("audio"),
+  html_tag("canvas"),
+  html_tag("svg"),
 }
 
 -- Add JavaScript/TypeScript snippets to multiple filetypes
