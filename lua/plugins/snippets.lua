@@ -7,6 +7,7 @@ return {
     opts = {
       history = true,
       delete_check_events = "TextChanged",
+      store_selection_keys = "<Tab>",
     },
     config = function(_, opts)
       require("luasnip").setup(opts)

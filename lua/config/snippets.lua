@@ -4,6 +4,17 @@ local t = ls.text_node
 local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
+local d = ls.dynamic_node
+local sn = ls.snippet_node
+
+-- Get visual selection
+local function get_visual(args, parent)
+  if #parent.snippet.env.LS_SELECT_RAW > 0 then
+    return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
+  else
+    return sn(nil, i(1))
+  end
+end
 
 -- Helper function for multi-language snippets
 local function add_to_multiple(languages, snippets)
@@ -185,3 +196,30 @@ add_to_multiple({
   "javascriptreact",
   "typescriptreact",
 }, jsx_snippets)
+
+-- Visual selection snippets for wrapping text
+local visual_snippets = {
+  s("vdiv", fmt("<div>{}</div>", { d(1, get_visual) })),
+  s("vspan", fmt("<span>{}</span>", { d(1, get_visual) })),
+  s("vp", fmt("<p>{}</p>", { d(1, get_visual) })),
+  s("vh1", fmt("<h1>{}</h1>", { d(1, get_visual) })),
+  s("vh2", fmt("<h2>{}</h2>", { d(1, get_visual) })),
+  s("vh3", fmt("<h3>{}</h3>", { d(1, get_visual) })),
+  s("vbutton", fmt("<button>{}</button>", { d(1, get_visual) })),
+  s("vstrong", fmt("<strong>{}</strong>", { d(1, get_visual) })),
+  s("vem", fmt("<em>{}</em>", { d(1, get_visual) })),
+  s("vcode", fmt("<code>{}</code>", { d(1, get_visual) })),
+  s("va", fmt('<a href="{}">{}</a>', { i(1), d(2, get_visual) })),
+  s("v(", fmt("({})", { d(1, get_visual) })),
+  s("v{", fmt("{{{}}}", { d(1, get_visual) })),
+  s("v[", fmt("[{}]", { d(1, get_visual) })),
+  s("v'", fmt("'{}'", { d(1, get_visual) })),
+  s('v"', fmt('"{}"', { d(1, get_visual) })),
+  s("v`", fmt("`{}`", { d(1, get_visual) })),
+}
+
+-- Add visual snippets to JSX/TSX
+add_to_multiple({
+  "javascriptreact",
+  "typescriptreact",
+}, visual_snippets)
